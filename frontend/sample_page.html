@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>My Home Page</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+	/** activities on load of page
+	    1) set regions available
+	    2) accounts created
+	
+		*/
+
+
+	
+	$.ajax({
+		url :  "http://54.251.227.64:3000/region/show",
+		type : "get",
+		dataType : "json",
+		success : fillRegions_list 
+
+	})
+	
+	window.onload = fetchAccounts_list
+	function fetchAccounts_list(){	
+		$.ajax({
+			url : "http://54.251.227.64:3000/account/view",
+			type : "get",
+			dataType : "json",
+			success :  fillAccounts_list,
+			error : function(request,type,errorThrown){
+			alert('error')
+			}
+		    })
+	}
+	function fillRegions_list(data){
+		$('#region_list').empty()
+		for(i=0;i<data.length;i++){
+			$('#region_list').append("<li><a onclick = setRegion('" + data[i] + "')>" + data[i] + "</a></li>")
+		}
+		
+	}
+
+	function fillAccounts_list(data){
+		$('#account_list').empty()
+		for(i=0;i<data.length;i++){
+			$('#account_list').append("<li><a onclick = setAccount('" + data[i].name + "')>" + data[i].name + "</a></li>")
+		}
+	}
+	
+        function  setRegion(item) {
+                  $("#selected_region").attr("value",item)
+            }
+
+	function setAccount(item){
+		$("#selected_account").attr("value",item)
+		
+	}
+
+	function setpopup_Region(item) {
+	    
+	    $('#pref_region').attr("value",item)
+	}
+	function accountCheck() {
+	    var name =  $('#account_name').val() // remember
+	    var access_key = $('#access_key').val()
+	    var secret_access_key = $('#secret_key').val()
+	    var region = $('#pref_region').val()
+	    
+	    if (name == "" || access_key == "" || secret_access_key == ""  || region == "") {
+		return 0
+	    }else{
+		return 1;
+	    }
+	}
+	
+	function createAccount(args) {
+	    
+	    var account = {
+			    "name" : $('#account_name').val() ,
+			     "access_key" : $('#access_key').val(),
+			     "secret_access_key" : $('#secret_key').val(),
+			     "region" : $('#pref_region').val()		    
+			      
+			    }
+			    
+			    
+	    if (accountCheck() == 1) {
+		 $.ajax({
+		url : "http://54.251.227.64:3000/account/create",
+		type : "post",
+		data : account,
+		success : function(data){
+		if(data.status = true){
+		   	
+			 fetchAccounts_list()
+			alert('your account created successfully')
+		} 
+		},
+		error: function(x,y,z){
+			alert('error')
+		}
+	    })
+	    }else{
+		alert('No field can be left blank')    
+	    }
+	    
+	}
+    </script>
+    <style>
+	.tabcontent{
+	    border : solid 2px;
+	    background-color : rgb(192,192,192);
+	}
+    </style>
+</head>
+<body>
+    <div class = "container-fluid" >
+        <div class = "row-fluid" >
+	    <div class = "span1"></div>
+            <div class = "span1">
+               <span class = "label label-info">Select Region</span>
+            </div>
+            <div class = "span2">
+                  
+                 <div class = "dropdown" >
+                    <input type = "text" class = "input-medium" id = "selected_region"  readonly>
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#" ><b class="caret"></b></a> 
+                    <ul class="dropdown-menu" id = "region_list">
+                      
+                    </ul>
+                   
+                </div>
+                           
+            </div>
+            <div class = "span1"></div>
+	    <div class = "span1">
+		<span class = "label label-info">Select Account</span>
+	    </div>
+		
+		<div id = "input_modal" class="modal hide fade" >
+		    <div class = "modal-header">
+			<table class = "table table-condensed">
+			    <thead>
+				<tr>
+				    <th>
+					Account Name
+				    </th>
+				    <th>
+					Aws Access Key
+				    </th>
+				</tr>
+			    </thead>
+			    <tbody>
+				<tr>
+				    <td>a</td>
+				    <td>b</td>
+				</tr>
+			    </tbody>
+			</table>
+		    </div>
+		     <div class="modal-body">
+			     <form class="form-horizontal">
+				<div class="control-group">
+				 	<label class="control-label">Account Name</label>
+				    	<div class="controls">
+						<input type="text" id="account_name" class = "input-large" >
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Aws Access Key</label>
+					<div class="controls">
+						<input type="text" id="access_key" class = "input-large" >
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Aws Secret Key</label>
+					<div class="controls">
+						<input type="text" id="secret_key" class = "input-large" >
+						
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Preferred Region</label>
+				    	<div class="controls">
+						    <input type = "text" class = "input-medium" id = "pref_region" readonly>
+						    <div class="btn-group">
+							     
+							    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+								Select
+								<span class="caret"></span>
+							    </a>
+							    <ul class="dropdown-menu">
+								    <li><a onclick = "setpopup_Region('item1')">item1</a></li>
+								    <li class = "divider"></li>
+								    <li><a onclick= "setpopup_Region('item2')">item2</a></li>
+							    </ul>
+						    </div>
+					</div>
+				</div>
+   			    </form>	
+		    </div>
+		     <div class="modal-footer">
+			    <div class = "row-fluid">
+				    <div class = "span1">
+					<button class="btn btn-primary"  onclick = "createAccount()">Add</button>
+				    </div>
+				    <div class = "span1"></div>
+				    <div class = "span1">
+					<button class="btn btn-primary">Remove</button>
+				    </div>
+				    <div class = "span3"></div>
+				    <button class="btn btn-primary" data-dismiss = "modal">Close</button>
+			    </div>
+		     </div>
+		</div>
+	    
+	    
+	    
+	    <div class = "span3">
+		 <div class = "dropdown" >
+                    <input type = "text" class = "input-medium" id = "selected_account"  readonly>
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#" ><b class="caret"></b></a> 
+                    <ul class="dropdown-menu" id = "account_list">
+                        
+                    </ul>
+                </div>
+		
+	    </div>
+	    <div class = "span1">
+		 <span class = "label label-info"><a href = "#input_modal" style = "color:white" data-toggle = "modal">Create Account</a></span>
+	    </div>	
+        </div>
+        <div class = "row-fluid">
+              <div class = "span1">
+	      </div>
+             <div class = "span10">
+                <ul id="myTab" class="nav nav-tabs">
+                      <li class="active"><a href="#Instances" data-toggle="tab">Instances</a></li>
+						                     
+                      <li><a href="#Images" data-toggle="tab">Images</a></li>
+                      
+                      <li><a href="#KeyPairs" class="dropdown-toggle" data-toggle="tab">KeyPairs</a></li>
+                      
+                      <li><a href="#Security_Groups" data-toggle="tab">Security Groups</a></li>
+                      
+                      <li><a href="#Elastic_IPs" data-toggle="tab">Elastic IP's</a></li>
+                      
+                      <li><a href="#Volumes" class="dropdown-toggle" data-toggle="tab">Volumes and Snapshots</a></li>
+                      
+                      <li><a href="#Tasks" data-toggle="tab">Bundle Tasks</a></li>
+                      
+                      <li><a href="#Zones" data-toggle="tab">Availability Zones</a></li>
+                      
+                      <li><a href="#ResInstances" class="dropdown-toggle" data-toggle="tab">Reserved Instances</a></li>
+                      
+
+                      <li><a href="#Load" data-toggle="tab">Load Balancer</a></li>
+                      
+                      
+                </ul>
+	    </div>
+            <div class="span1">
+	    </div>
+                <div id="myTabContent" class="tab-content">
+			<div id="Instances" class="tab-pane fade in active tabcontent" >
+                                <div class="navbar">
+				    <div class="navbar-inner">
+					    <ul class="nav">
+						<li><a href="#">Refresh</a></li>
+						<li><a href="#">Reboot Selected Instances</a></li>
+						<li><a href="#">Terminate Selected Instances</a></li>
+						<li><a href="#">Show Console Outout</a></li>
+						<li><a href="#">Connect To Instance</a></li>
+						<li><a href="#">Add Tag</a></li>
+					    </ul>
+				    </div>
+				</div>
+                        </div>
+                        <div id="Images" class="tab-pane fade tabcontent">
+                            images
+                        </div>
+			<div id="KeyPairs" class="tab-pane fade tabcontent">
+                            keypairs
+                        </div>
+			<div id="Security_Groups" class="tab-pane fade tabcontent">
+                            security_groups
+                        </div>
+			<div id="Elastic_IPs" class="tab-pane fade tabcontent">
+                            elastic_ips
+                        </div>
+			<div id="Volumes" class="tab-pane fade tabcontent">
+                            volumes
+                        </div>
+			<div id="Tasks" class="tab-pane fade tabcontent">
+                            tasks
+                        </div>
+			<div id="Zones" class="tab-pane fade tabcontent">
+                            zones
+                        </div>
+			<div id="ResInstances" class="tab-pane fade tabcontent">
+                            reserverd instances
+                        </div>
+			<div id="Load" class="tab-pane fade tabcontent">
+                            load
+                        </div>
+                </div>
+          </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>My Home Page</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    
+    <style>
+	.tabcontent{
+	    border : solid 1px;
+	    background-color : rgb(248,248,248);
+	}
+	
+	.content_div_scroll{
+		height : 250px;
+		overflow : scroll	
+  	}
+      
+
+	.modal_account_list_header{
+		border-top-left-radius : 15px;
+		-moz-border-top-left-radius : 15px;
+		border-top-right-radius : 15px;
+		-moz-border-top-right-radius : 15px
+		
+		}
+
+     .modal_account_list_body {
+		border-bottom-left-radius : 15px;
+		-moz-border-bottom-left-radius : 15px;
+		border-bottom-right-radius : 15px;
+		-moz-border-bottom-right-radius : 15px;
+
+	}	
+       .modal_label {
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		display: inline-block;
+		padding: 2px 4px;
+		font-size: 15px;
+		font-weight: bold;
+		line-height: 14px;
+		color: black;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		white-space: nowrap;
+		vertical-align: baseline;
+		
+	}
+	navigation_links{
+		font-size : 12px
+	}
+	.link_colors {
+		background-color : blue
+	}
+    </style>
+</head>
+<body>
+<div class="modal hide fade" id = "progress_modal" style = "width : 200px ; left : 65% ; top : 25%">
+  	<div class = "modal-header">
+	<div class = "row-fluid">
+		<div class = "span4">
+		</div>
+		
+		<h6>In Progress</h6>
+	</div>
+	</div>
+	<div class = "modal-body">
+		<img src = "img/progressbar.gif">
+  	</div>
+  
+</div>  
+
+<div class="modal hide fade" id = "user_alert" style = "width : 300px ; left : 65% ; top : 25%">
+  	<div class = "modal-header">
+		<div class = "row-fluid">
+			
+			<div class = "span4 offset8">
+				<button class="btn btn-primary" data-dismiss = "modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<div class = "modal-body">
+		<span class = "label label-important"> Account Name Or Region Is Empty</span>
+  	</div>
+  
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<div id="instance_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class = "modal-header">
+  	<div class = "row-fluid">
+		
+		<div class = "span4 offset4"><h5>Instance Details</h5></div>
+		
+		<div class = "span3 offset1">
+			<button class="btn btn-primary" data-dismiss = "modal">Close</button>
+
+		</div>
+	</div>
+  </div>
+
+  <div class="modal-body" >
+     	<div class = "row-fluid">
+       	<div class = "span4 offset2"><span class = "modal_label">owner id :</span>  </div> <input type = "text" class = "input-large" id = "owner_id"  >
+	</div>
+	<div class = "row-fluid">
+		<div class = "span4 offset2"><span class = "modal_label">instance id :</span> </div> <input type = "text" class = "input-large" id = "instance_id"  >
+	</div>
+
+	<div class = "row-fluid">
+
+		 <div class = "span4 offset2"><span class = "modal_label">reservation id :</span></div> <input type = "text" class = "input-large" id = "reservation_id"  >
+
+	</div>	
+	<div class = "row-fluid">
+
+		 <div class = "span4 offset2"><span class = "modal_label" >image id</span> </div> <input type = "text" class = "input-large" id = "image_id"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class  = "modal_label">kernel_id</span> </div> <input type = "text" class = "input-large" id = "kernel_id"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label"> state</span> </div> <input type = "text" class = "input-large" id = "state"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">public dns</span></div> <input type = "text" class = "input-large" id = "public_dns"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">private dns</span></div> <input type = "text" class = "input-large" id = "private_dns"  >
+	</div>
+
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">private ip</span></div> <input type = "text" class = "input-large" id = "private_ip"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">public ip</span></div> <input type = "text" class = "input-large" id = "public_ip"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">key</span> </div> <input type = "text" class = "input-large" id = "key"  >
+	</div>
+		<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">reason</span> </div> <input type = "text" class = "input-large" id = "reason"  >
+	  </div>
+
+
+
+		<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">instance type</label> </div> <input type = "text" class = "input-large" id = "instance_type"  >
+	</div>
+
+		<div class = "row-fluid">
+
+		<div class = "span4 offset2">  <span class = "modal_label">launch time</span></div> <input type = "text" class = "input-large" id = "launch_time"  >
+	</div>
+		<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">availability_zone</span></div> <input type = "text" class = "input-large" id = "availability_zone"  >
+	</div>
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">root device</span></div> <input type = "text" class = "input-large" id = "root_device" >
+	</div>
+
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">platform</span></div> <input type = "text" class = "input-large" id = "platform"  >
+	</div>
+
+	<div class = "row-fluid">
+
+		<div class = "span4 offset2"> <span class = "modal_label">monitoring state</span></div> <input type = "text" class = "input-large" id = "monitoring_state"  >
+	</div>
+
+
+
+   </div>
+  
+</div
+
+
+
+
+
+<div class = "container-fluid" >
+        <div class = "row-fluid" >
+	      
+            <div class = "span1 offset1">
+               &nbsp &nbsp &nbsp &nbsp &nbsp  
+		<a href = '#' onclick = ''data-toggle = "tooltip" data-placement = "bottom" title = "Regions"><img src = 'img/regions.png' height = 30 width = 30></a>
+		
+	   </div>
+                 
+            <div class = "span2">
+           
+                  
+                 <div class = "dropdown" >
+                    <input type = "text" class = "input-medium" id = "selected_region"  readonly>
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#" ><b class="caret"></b></a> 
+                    <ul class="dropdown-menu" id = "region_list">
+                      
+                    </ul>
+                   
+                </div>
+                           
+            </div>
+            
+	    <div class = "span1 offset1">
+		&nbsp &nbsp &nbsp &nbsp &nbsp
+		
+		 <a href = "#input_modal" style = "color:white" data-toggle = "modal">
+		<img src = 'img/credentials.png' height = 30  width = 30 >
+		</a>
+		
+	    </div>
+		
+		<div id = "input_modal" class="modal hide fade" >
+		    <div class = "modal-header">
+			<div class = "row-fluid modal_account_list_header" style = "border : 2px solid"> <div class = "span4"></div><h4>your accounts with us</h4></div>
+			<div class = "row-fluid scroll_property modal_account_list_body" style = " border : 2px solid">
+				
+					<div class = "span1"></div>
+					<div class = "span11">
+					<ol  id = "modal_account_list" >
+
+					</ol>
+					</div>
+				
+			</div>
+		    </div>
+		     <div class="modal-body">
+			     <form class="form-horizontal">
+				<div class="control-group">
+				 	<label class="control-label">Account Name</label>
+				    	<div class="controls">
+						<input type="text" id="account_name" class = "input-large" >
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Aws Access Key</label>
+					<div class="controls">
+						<input type="text" id="access_key" class = "input-large" >
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Aws Secret Key</label>
+					<div class="controls">
+						<input type="text" id="secret_key" class = "input-large" >
+						
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Preferred Region</label>
+				    	<div class="controls">
+						    <input type = "text" class = "input-medium" id = "pref_region" readonly>
+						    <div class="btn-group">
+							     
+							    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+								Select
+								<span class="caret"></span>
+							    </a>
+							    <ul class="dropdown-menu" id = "pref_region_list">
+							   </ul>
+						    </div>
+					</div>
+				</div>
+   			    </form>	
+		    </div>
+		     <div class="modal-footer">
+			    <div class = "row-fluid">
+				    <div class = "span1">
+					<button class="btn btn-primary"  onclick = "createAccount()">Add</button>
+				    </div>
+				    
+				    <div class = "span1 offset1">
+					<button class="btn btn-primary" onclick = 'deleteAccount()'>Remove</button>
+				    </div>
+				    <div class = "span3"></div>
+				    <button class="btn btn-primary" data-dismiss = "modal">Close</button>
+			    </div>
+		     </div>
+		</div>
+	    
+	    
+	    
+	    <div class = "span3">
+		 <div class = "dropdown" >
+                    <input type = "text" class = "input-large" id = "selected_account"  readonly>
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#" ><b class="caret"></b></a> 
+                    <ul class="dropdown-menu" id = "account_list">
+                        
+                    </ul>
+                </div>
+		
+	    </div>
+	    	
+        </div>
+        <div class = "row-fluid">
+	 
+          <div class = "span10 offset1">
+                <ul id="myTab" class="nav nav-tabs myfont">
+                      <li class="active"><a href="#Instances" data-toggle="tab" style = "font-size:12px">Instances</a></li>
+		     		                     
+                      <li><a href="#Images" data-toggle="tab" style = "font-size:12px">Images</a></li>
+                      
+                      <li><a href="#KeyPairs" class="dropdown-toggle" data-toggle="tab" style = "font-size:12px">KeyPairs</a></li>
+                      
+                      <li><a href="#Security_Groups" data-toggle="tab" style = "font-size:12px">Security Groups</a></li>
+                      
+                      <li><a href="#Elastic_IPs" data-toggle="tab" style = "font-size:12px">Elastic IP's</a></li>
+                      
+                      <li><a href="#Volumes" class="dropdown-toggle" data-toggle="tab" style = "font-size:12px">Volumes and Snapshots</a></li>
+                      
+                      <li><a href="#Tasks" data-toggle="tab" style = "font-size:12px">Bundle Tasks</a></li>
+                      
+                      <li><a href="#Zones" data-toggle="tab" style = "font-size:12px">Availability Zones</a></li>
+                      
+                      <li><a href="#ResInstances" class="dropdown-toggle" data-toggle="tab" style = "font-size:12px">Reserved Instances</a></li>
+                      
+
+                       <li><a href="#Load" data-toggle="tab" style = "font-size:12px">Load Balancer</a></li> 
+                      
+                      
+                </ul>
+	  </div>
+	
+	</div>  
+                
+		<div class = "row-fluid">
+				  
+		    <div class = "span10 offset1">
+			    <div id="myTabContent" class="tab-content">
+					<div id="Instances" class="tab-pane fade in active tabcontent content_div_scroll" >
+					   <div class = "row-fluid" >
+					   	<div class = "span2">
+							<input type = "text" class = "input-medium" id = "search_box">		
+						 </div>
+						<div class = "span5">
+							<a href = '#' onclick = 'instance_search()' data-toggle = "tooltip" data-placement = "bottom" title  = "Refresh"><img src = 'img/images.jpg' height = 30 width = 30></a>
+							<a href = '#' onclick = 'refresh()' data-toggle = "tooltip" data-placement = "bottom" title  = "Refresh"><img src = 'img/refresh.png' height = 30 width = 30></a>
+							
+							<a href  = '#' onclick = '' data-toggle = "tooltip" data-placement = "bottom" title = "Reboot Selected Instances"><img src = 'img/reboot.png' height = 30 width = 30></a>
+							<a href = '#' onclick = '' data-toggle = "tooltip" data-placement = "bottom" title = "Terminate Selected Instances"><img src = 'img/powerdown.png' height = 30 width = 30></a>
+							<a href = '#' onclick = '' data-toggle = "tooltip" data-placement = "bottom" title = "Show Console Output"><img src = 'img/get_console_output.png' height = 30 width = 30></a>
+							
+							<a href  = '#' onclick = '' data-toggle = "tooltip" data-placement = "bottom" title = "Connect To Instance"><img src = 'img/ssh.png' height = 30 width = 30></a>
+         
+                                               
+							<a href = '#' onclick = '' data-toggle = "tooltip" data-placement = "bottom" title = "Add Tag"><img src = 'img/info.png' height = 30  width = 30></a>
+						</div>
+
+					  </div> 
+
+					  <div class = "row-fluid">
+							
+							<table class = "table table-bordered">
+								<thead>
+									<tr>
+										<th>
+											Instance Id
+									      </th>
+									
+									<th>
+											Public Ip
+									</th>
+									<th>
+											AMI
+									</th>
+									<th>
+											State
+									</th>
+									<th>
+											Full Details
+									</th>
+								</tr>
+								</thead>
+								<tbody id = "instance_list">
+
+								</tbody>
+							</table>
+							
+					  </div>
+
+             
+				        </div>
+				        <div id="Images" class="tab-pane fade tabcontent content_div_scroll">
+				            images
+				        </div>
+					<div id="KeyPairs" class="tab-pane fade tabcontent content_div_scroll">
+				            keypairs
+				        </div>
+					<div id="Security_Groups" class="tab-pane fade tabcontent content_div_scroll ">
+				            security_groups
+				        </div>
+					<div id="Elastic_IPs" class="tab-pane fade tabcontent content_div_scroll">
+				            elastic_ips
+				        </div>
+					<div id="Volumes" class="tab-pane fade tabcontent content_div_scroll">
+				            volumes
+				        </div>
+					<div id="Tasks" class="tab-pane fade tabcontent content_div_scroll">
+				            tasks
+				        </div>
+					<div id="Zones" class="tab-pane fade tabcontent content_div_scroll">
+				            zones
+				        </div>
+					<div id="ResInstances" class="tab-pane fade tabcontent content_div_scroll">
+				            reserverd instances
+				        </div>
+					<div id="Load" class="tab-pane fade tabcontent content_div_scroll">
+				            load
+				        </div>
+			    </div>
+		    </div>
+		    
+		</div>
+                  
+    </div>
+    <script>
+
+	/** activities on load of page
+	    1) set regions available
+	    2) accounts created
+	
+		*/
+
+	$.ajax({
+		url :  "http://54.251.227.64:3000/region/show",
+		type : "get",
+		dataType : "json",
+		success : fillRegions_list 
+
+	})
+       function myfunction(){
+		alert('start');
+	}
+	
+	window.onload = fetchAccounts_list
+	function fetchAccounts_list(){	
+		$.ajax({
+			url : "http://54.251.227.64:3000/account/view",
+			type : "get",
+			dataType : "json",
+			success :  fillAccounts_list,
+			error : function(request,type,errorThrown){
+			alert('error')
+			}
+		    })
+	}
+	
+	function fillRegions_list(data){
+		$('#region_list').empty()
+		for(i=0;i<data.length;i++){
+			$('#region_list').append("<li><a onclick = setRegion('" + data[i] + "')>" + data[i] + "</a></li>")
+			$('#pref_region_list').append("<li><a onclick = setPrefRegion('" + data[i] + "')>" + data[i] + "</a></li>")
+		}
+		
+	}
+
+	function fillAccounts_list(data){
+		$('#account_list').empty()
+		$('#modal_account_list').empty()
+		for(i=0;i<data.length;i++){
+			$('#account_list').append("<li><a onclick = setAccount('" + data[i].name + "')>" + data[i].name + "</a></li>")
+			$('#modal_account_list').append("<h4><li><a href = '#' onclick = showAccount('" + data[i].name + "')>" + data[i].name + "</a></li></h4>")  
+		}
+	}
+	
+	
+	function showAccount(name){
+		$.ajax({
+			url : "http://54.251.227.64:3000/account/specified/?account=" + name,
+			type : "get",
+			dataType : "json",
+			success : displayAccount,
+   		})
+
+	}	
+        function displayAccount(data){
+		$('#account_name').attr("value",data[0].name)
+		$('#access_key').attr("value",data[0].access_key)
+		$('#secret_key').attr("value",data[0].secret_access_key)
+		$('#pref_region').attr("value",data[0].region)		
+	}
+        function  setRegion(item) {
+                  $("#selected_region").attr("value",item)
+            }
+        function setPrefRegion(item){
+		  $("#pref_region").attr("value",item)
+
+	}
+	function setAccount(item){
+		$("#selected_account").attr("value",item)
+		
+	}
+
+	
+	function accountCheck() {
+	    var name =  $('#account_name').val() // remember
+	    var access_key = $('#access_key').val()
+	    var secret_access_key = $('#secret_key').val()
+	    var region = $('#pref_region').val()
+	    
+	    if (name == "" || access_key == "" || secret_access_key == ""  || region == "") {
+		return 0
+	    }else{
+		return 1;
+	    }
+	}
+	/*
+	function clearform(){
+		alert('error')
+		$("#account_name").attr("value","1");
+		$('#access_key').attr("value","");
+		$('#secret_access_key').attr("value","");
+		$('#pref_region').attr("value","");
+
+	}
+	*/
+        function deleteAccount(){
+		var account_name = $('#account_name').val()
+		$.ajax({
+			url : "http://54.251.227.64:3000/account/delete/?account="  + account_name,
+			type : "post",
+  			success : function(data){
+				fetchAccounts_list()		
+			} 
+			
+		})
+		
+        }
+	function createAccount(args) {
+	   
+	    var account = {
+			    "name" : $('#account_name').val() ,
+			     "access_key" : $('#access_key').val(),
+			     "secret_access_key" : $('#secret_key').val(),
+			     "region" : $('#pref_region').val()		    
+			      
+			    }
+			    
+			    
+	    if (accountCheck() == 1) {
+		 $.ajax({
+		url : "http://54.251.227.64:3000/account/create",
+		type : "post",
+		data : account,
+		
+		success : function(data){
+		if(data.status = true){
+		   	 //clearform()
+			 fetchAccounts_list()
+			alert('your account created successfully')
+		} 
+		},
+		error: function(x,y,z){
+			alert('error')
+		}
+	    })
+	    }else{
+		alert('No field can be left blank')    
+	    }
+	    
+	}
+
+
+       function refresh(){
+		
+              
+		var region = $('#selected_region').val()
+		var account = $('#selected_account').val()
+		if(region != "" && account != ""){
+			$('#progress_modal').modal()
+               	 $.ajax({
+				url : "http://54.251.227.64:3000/instance/view?region=" + region + "&account="+account ,
+				type : "get",
+				success : showInstances
+			})
+		}else{
+			$('#user_alert').modal()
+		}
+
+	}
+
+	function showInstances(data){
+		var instance_list = $('#instance_list')
+	       instance_list.empty()
+		for (var i=0 ;i < data.length;i++) {
+			var search_value  = data[i].public_ip.replace('.','-') 
+			search_value = search_value.replace('.','-')
+			search_value = search_value.replace('.','-')
+			search_value = search_value.replace('.','-')
+		     instance_list.append('<tr id =a' + search_value +'><td>' + data[i].instance_id + '</td><td>' + data[i].public_ip + '</td><td>' +data[i].image_id + '</td><td>' +data[i].state + "</td><td><button onclick = full_instance_details('" + data[i].instance_id + "','" + data[i].region + "')  class = 'btn btn-primary'>See full details</button></td></tr>")  
+		}
+		$('#progress_modal').modal('hide')	
+
+	}
+       function full_instance_details(instance_id , region){
+		$('#progress_modal').modal()
+		var account = $('#selected_account').val()
+		$.ajax({
+			url : 'http://54.251.227.64:3000/instance/show_instance_details?region=' + region + '&instance_id=' + instance_id + '&account=' + account,
+			type : "get",
+			success : show_instance_details
+		})
+		
+	}
+       function show_instance_details(data){
+		$('#owner_id').attr('value',data.owner_id)
+		$('#instance_id').attr('value',data.instance_id)
+		$('#reservation_id').attr('value',data.reservation_id)
+		$('#image_id').attr('value',data.image_id)
+		$('#kernel_id').attr('value',data.kernel_id)
+		$('#state').attr('value',data.state)
+		$('#public_dns').attr('value',data.public_dns)
+		$('#private_dns').attr('value',data.private_dns)
+		$('#private_ip').attr('value',data.private_ip)
+		$('#public_ip').attr('value',data.public_ip)
+		$('#key').attr('value',data.key)
+		$('#reason').attr('value',data.reason)
+		$('#instance_type').attr('value',data.instance_type)
+		$('#launch_time').attr('value',data.launch_time)
+		$('#availability_zone').attr('value',data.availability_zone)
+		$('#root_device').attr('value',data.root_device)
+		$('#platform').attr('value',data.platform)
+		$('#monitoring_state').attr('value',data.monitoring_state)
+		$('#progress_modal').modal('hide');
+		$('#instance_modal').modal();
+		
+		
+	}
+	
+   
+
+
+		function instance_search(){
+		
+		var ip = $('#search_box').val()
+		var search_value = ip.replace('.','-')
+		search_value = search_value.replace('.','-')
+		search_value = search_value.replace('.','-')
+		search_value = search_value.replace('.','-')
+		$('#a'+search_value).css('background-color','#FFFFCC')
+
+
+	}
+    </script>
+</body>
+</html>

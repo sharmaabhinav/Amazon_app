@@ -1,0 +1,6 @@
+This application is a interface to amazon ec2.Using This user can manage multiple accounts. Using a account he can do diffrent things
+1) creating an account (using aws access key and secret key )(Implemented)
+2) view instances in a particular region launch by this account(Implemented)
+3) search for an instance in list and view its full details like public ip  , id etc (Implemented)
+4) launch instances (not yet implemented)
+and lots of other stuff  
